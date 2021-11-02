@@ -8,13 +8,19 @@
     <h1>Welcome to my coffee page!</h1>
 
 
-    <div th:if="${roast}">
+    <div th:if="${selections}">
 
-        <h2 th:if="${roast}">
+        <h2>
             You selected <span th:text="${roast}"></span> roast!
         </h2>
-        <p th:if="${darkChoice}">You chose the Dark Side!</p>
-        <p th:if="!${darkChoice}">That ain't right!</p>
+
+        <p> Here are some selections:</p>
+        <ul th:each="selection : ${selections}">
+            <p><span th:text="${selection.brand}"></span> <span th:text="${selection.origin}"></span> <span th:text="${selection.roast}"></span> roast</p>
+        </ul>
+
+<!--        <p>We have an amazing <span th:text="${selections.roast}"></span> roast from <span th:text="${selections.origin}"></span></p>-->
+<!--        <p th:if="!${darkChoice}">That ain't right!</p>-->
 
     </div>
 
