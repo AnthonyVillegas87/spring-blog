@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dice Roll</title>
+</head>
+<body>
+<h1>Feeling lucky today?!!</h1>
+<div th:if="${n}">
+    <h2>
+        You selected <span th:text="${n}"></span>
+    </h2>
+    <h2>
+        The number is <span th:text="${i}"></span>
+    </h2>
+
+    <p th:if="${correctChoice}"> You chose correctly</p>
+    <p th:if="!${correctChoice}"> You chose wrong</p>
+</div>
+
+<h3>Roll the dice: </h3>
+<ul>
+    <li><a href="/dice-roll/1">1</a></li>
+    <li><a href="/dice-roll/2">2</a></li>
+    <li><a href="/dice-roll/3">3</a></li>
+    <li><a href="/dice-roll/4">4</a></li>
+    <li><a href="/dice-roll/5">5</a></li>
+    <li><a href="/dice-roll/6">6</a></li>
+</ul>
+
+</body>
+</html>
