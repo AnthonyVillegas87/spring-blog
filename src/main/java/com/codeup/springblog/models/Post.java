@@ -4,13 +4,13 @@ package com.codeup.springblog.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "post")
+@Table(name = "posts")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = true, length = 300)
+    @Column(nullable = false, length = 300)
     private String title;
     @Column(columnDefinition = "TEXT NOT NULL")
     private String  body;

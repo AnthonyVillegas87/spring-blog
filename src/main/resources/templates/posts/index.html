@@ -2,17 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 <!--    <meta charset="UTF-8">-->
-    <title>Post Title</title>
+    <head th:replace="partials/partials.html :: head('Blogs Page')">
 </head>
 <body>
+<nav th:replace="partials/partials.html :: navbar"></nav>
+
+<!--    <ul>-->
+<!--        <li th:each="blog : ${blogs}">-->
+<!--            <h2><span th::text="${blog.title}"></span></h2>-->
+<!--            <p th::text="${blog.body}"></p>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+
     <h1>Blogs</h1>
 
-    <ul>
-        <li th:each="blog : ${blogs}">
-            <h2><span th::text="${blog.title}"></span></h2>
-            <p th::text="${blog.body}"></p>
-        </li>
-    </ul>
+    <div class="container">
+        <form action="/posts/index" method="POST">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description">
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+
+
+
+
+
 
 </body>
 </html>
