@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-<!--    <meta charset="UTF-8">-->
     <head th:replace="partials/partials.html :: head('Blogs Page')">
 </head>
 <body>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 
-<!--    <ul>-->
-<!--        <li th:each="blog : ${blogs}">-->
-<!--            <h2><span th::text="${blog.title}"></span></h2>-->
-<!--            <p th::text="${blog.body}"></p>-->
-<!--        </li>-->
-<!--    </ul>-->
+<h1>My Blogs</h1>
+
+<div th:each="post : ${posts}">
+    <h2><span th::text="${post.title}"></span></h2>
+    <p th::text="${post.body}"></p>
+    <a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit Post</a>
+    <form th:action="@{'/posts/' + ${post.id} + '/delete'}" th:method="POST">
+        <button>Delete</button>
+    </form>
+</div>
 
 
-    <h1>Blogs</h1>
 
-    <div class="container">
-        <form action="/posts/index" method="POST">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title">
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description">
-            </div>
-            <input type="submit">
-        </form>
-    </div>
+
+
+
+
 
 
 

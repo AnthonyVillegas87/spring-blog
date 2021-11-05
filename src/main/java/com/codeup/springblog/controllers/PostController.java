@@ -19,47 +19,62 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-        @GetMapping("/posts/index")
-    public String showIndex() {
+    // ADD endpoint to send the user an edit posts form/view
+    //create an edit post form
+    //create another endpoint to handle the post request of editing a post
+
+
+///============== Show VIEW
+        @GetMapping("/posts")
+    public String showIndex(Model model) {
         //seed posts in DB
         //fetch all posts with post repository
-
+            List<Post> posts = postRepository.findAll();
 //            Post blog1 = new Post("Day One", "Today we learned how to pass data to views");
 //            Post blog2 = new Post("Day Two", "Today we learned how to create partials and include them in various pages");
-//        List<Post> blogs = new ArrayList<>();
 //        blogs.add(blog1);
 //        blogs.add(blog2);
-//
-//        model.addAttribute("blogs", blogs);
-//
+       model.addAttribute("posts", posts);
        return "posts/index";
     }
 
-    @PostMapping ("/posts/index")
-    @ResponseBody
-    public String createPost(@RequestBody Post newPost) {
-        postRepository.save(newPost);
-        return String.format("Create Ads %s :" , newPost.getId());
+
+
+
+//===================Edit View
+    @GetMapping("/posts/{id}/edit")
+    public String showEditIndex(@PathVariable long id, Model viewModel) {
+        //Edit form send
+        viewModel.addAttribute("post", postRepository.getById(id));
+        return "posts/edit";
     }
+    @PostMapping("/posts/{id}/edit")
+    public String updatePost(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
+    //Use the new form inputs to update the existing post in DB
+    // Pull existing post from DB
+    Post post = postRepository.getById(id);
+    post.setTitle(title);
+    post.setBody(body);
+    //set the title & body to param values
+    // set the change inthe DB with postRepository
+    postRepository.save(post);
 
+        return "redirect:/posts";
 
-// ADD endpoint to send the user an edit posts form/view
+}
 
-    //create an edit post form
-
-    //create another endpoint to handle the post request of editing a post
-
-//    @GetMapping("/posts/{id}")
-//    public String showSingleIndex(@PathVariable int id, Model model) {
-//        Post blog = new Post("My first post", "Create a new post & pass it to the view ");
-//        model.addAttribute("blog", blog);
-//        return "posts/show";
+//==================DELETE VIEW
+//    @PostMapping ("/posts/index")
+//    @ResponseBody
+//    public String createPost(@RequestBody Post newPost) {
+//        postRepository;
+//        return String.format("Create Ads %s :" , newPost.getId());
 //    }
-
 
 
 //    @GetMapping("/posts/create")
 //    public String createIndex() {
+    //        Post blog = new Post("My first post", "Create a new post & pass it to the view ");
 //        return "Create posts";
 //    }
 
