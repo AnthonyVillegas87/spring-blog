@@ -1,12 +1,13 @@
 package com.codeup.springblog.controllers;
 
-import com.codeup.springblog.models.Ad;
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.PostImage;
 import com.codeup.springblog.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class PostController {
 
 ///============== Show VIEW
         @GetMapping("/posts")
-    public String showIndex(Model model) {
+    public String showIndex(Model viewModel) {
         //seed posts in DB
         //fetch all posts with post repository
             List<Post> posts = postRepository.findAll();
@@ -34,10 +35,16 @@ public class PostController {
 //            Post blog2 = new Post("Day Two", "Today we learned how to create partials and include them in various pages");
 //        blogs.add(blog1);
 //        blogs.add(blog2);
-       model.addAttribute("posts", posts);
+       viewModel.addAttribute("posts", posts);
        return "posts/index";
     }
 
+    @GetMapping("/posts/{id}")
+    @ResponseBody
+    public String show(@PathVariable long id) {
+
+        return "Posts " + id;
+    }
 
 
 
@@ -49,7 +56,7 @@ public class PostController {
         return "posts/edit";
     }
     @PostMapping("/posts/{id}/edit")
-    public String updatePost(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
+    public String updatePost(@PathVariable long id, @RequestParam(name="title") String title, @RequestParam String body) {
     //Use the new form inputs to update the existing post in DB
     // Pull existing post from DB
     Post post = postRepository.getById(id);
@@ -59,29 +66,45 @@ public class PostController {
     // set the change inthe DB with postRepository
     postRepository.save(post);
 
-        return "redirect:/posts";
+    return "redirect:/posts";
 
 }
 
+
 //==================DELETE VIEW
-//    @PostMapping ("/posts/index")
-//    @ResponseBody
-//    public String createPost(@RequestBody Post newPost) {
-//        postRepository;
-//        return String.format("Create Ads %s :" , newPost.getId());
-//    }
+    @PostMapping ("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postRepository.deleteById(id);
+        return "redirect:/posts";
+    }
 
 
-//    @GetMapping("/posts/create")
-//    public String createIndex() {
-    //        Post blog = new Post("My first post", "Create a new post & pass it to the view ");
-//        return "Create posts";
-//    }
 
-//    @PostMapping ("/posts/create")
-//    public String createAds() {
-//        return "Create Ads";
-//    }
+
+
+/// ====================== Create View
+    @GetMapping("/posts/create")
+    public String create() {
+
+        return "posts/create";
+    }
+
+    @PostMapping ("/posts/create")
+    public String insert(@RequestParam String title, @RequestParam String body, @RequestParam List<String> urls) {
+        List<PostImage> image = new ArrayList<>();
+
+        Post post = new Post(title, body);
+        for(String url : urls) {
+            PostImage postImage = new PostImage(url);
+            postImage.setPost(post);
+            image.add(postImage);
+        }
+        post.setImages(image);
+
+
+        postRepository.save(post);
+        return "redirect:/posts";
+    }
 
 
 
