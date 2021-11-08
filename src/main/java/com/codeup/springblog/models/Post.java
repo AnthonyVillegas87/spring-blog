@@ -13,10 +13,14 @@ public class Post {
     private long id;
     @Column(nullable = false, length = 300)
     private String title;
-    @Column(columnDefinition = "TEXT NOT NULL")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String  body;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<PostImage> images;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Post() {}
@@ -67,4 +71,24 @@ public class Post {
     public void setImages(List<PostImage> images) {
         this.images = images;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", images=" + images +
+                ", user=" + user +
+                '}';
+    }
+
 }

@@ -1,8 +1,13 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.Ad;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.PostImage;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +20,13 @@ import java.util.List;
 public class PostController {
 /// dependency injection
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postRepository) {
+    public PostController(PostRepository postRepository, UserRepository userRepository, EmailService emailService) {
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // ADD endpoint to send the user an edit posts form/view

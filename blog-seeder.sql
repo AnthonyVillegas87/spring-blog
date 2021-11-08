@@ -50,3 +50,6 @@ insert into posts (id, title, body) values (47, 'lorem vitae mattis nibh ligula 
 insert into posts (id, title, body) values (48, 'semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.');
 insert into posts (id, title, body) values (49, 'platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.');
 insert into posts (id, title, body) values (50, 'imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.');
+
+INSERT INTO ads (description, title) VALUES ('ad 1', 'amazing stuff');
+INSERT INTO ads (description, title) VALUES ('ad 2', 'truly amazing stuff');

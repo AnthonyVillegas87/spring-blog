@@ -10,10 +10,26 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+
+
     @Column(nullable = true, length = 300)
     private String title;
     @Column(columnDefinition = "TEXT NOT NULL")
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+
+    public Ad() {}
+
+
+    public Ad(long id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
 
     public long getId() {
         return id;
@@ -38,4 +54,15 @@ public class Ad {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+
+
 }
