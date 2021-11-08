@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="partials/partials.html :: head('Create Page')">
+<title>Coffee creation</title>
+<body>
+<nav th:replace="partials/partials.html :: navbar"></nav>
+<div class="container">
+    <form  th:action="@{/coffees/createCoffee.html}" th:method="POST" th:object="${coffee}">
+        <div class="input-field">
+            <input type="text" name="brand" th:field="*{brand}" id="brand">
+            <label for="brand">Brand</label>
+        </div>
+        <div class="input-field">
+            <input type="text" name="origin" th:field="*{origin}" id="origin">
+            <label for="origin">Origin</label>
+        </div>
+        <div class="input-field">
+            <input type="text" name="roast" th:field="*{roast}" id="roast">
+            <label for="roast">Roast</label>
+        </div>
+        <button>Post a Roast</button>
+    </form>
+</div>
+
+<script th:replace="partials/partials.html :: materialize-js"></script>
+</body>
+</html>
