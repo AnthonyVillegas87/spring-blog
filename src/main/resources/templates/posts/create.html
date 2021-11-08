@@ -5,21 +5,29 @@
 <body>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 <div class="container">
-    <form  th:method="POST">
-        <div class="form-group">
+    <form th:action="@{/posts/create.html}" th:method="POST" th:object="${post}">
+        <div class="input-field">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title">
+            <input type="text" th:field="*{title}" name="title" id="title">
         </div>
-        <div class="form-group">
+        <div class="input-field">
             <label for="body">Description</label>
-            <input type="text" name="body" id="body">
+            <input type="text" th:field="*{body}" name="body" id="body">
         </div>
-        <div>
-            <label for="img_1">Image</label>
-            <input type="url" name="urls" id="img_1">
+        <div class="file-field input-field">
+            <div class="btn waves-effect waves-light">
+                <span>Upload File</span>
+                <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input type="url" th:field="*{images}" name="urls" id="img_1" class="file-path">
+            </div>
+
         </div>
         <button>Create Post</button>
     </form>
 </div>
+
+<script th:replace="partials/partials.html :: materialize-js"></script>
 </body>
 </html>

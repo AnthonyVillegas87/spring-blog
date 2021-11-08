@@ -30,12 +30,12 @@ public class PostController {
     public String showIndex(Model viewModel) {
         //seed posts in DB
         //fetch all posts with post repository
-            List<Post> posts = postRepository.findAll();
+//            List<Post> posts = ;
 //            Post blog1 = new Post("Day One", "Today we learned how to pass data to views");
 //            Post blog2 = new Post("Day Two", "Today we learned how to create partials and include them in various pages");
 //        blogs.add(blog1);
 //        blogs.add(blog2);
-       viewModel.addAttribute("posts", posts);
+       viewModel.addAttribute("posts", postRepository.findAll());
        return "posts/index";
     }
 
@@ -56,15 +56,18 @@ public class PostController {
         return "posts/edit";
     }
     @PostMapping("/posts/{id}/edit")
-    public String updatePost(@PathVariable long id, @RequestParam(name="title") String title, @RequestParam String body) {
+    public String updatePost(@ModelAttribute Post post) {
+
+
     //Use the new form inputs to update the existing post in DB
     // Pull existing post from DB
-    Post post = postRepository.getById(id);
-    post.setTitle(title);
-    post.setBody(body);
+    Post dBpost = postRepository.getById(post.getId());
+
     //set the title & body to param values
+        dBpost.setTitle(post.getTitle());
+        dBpost.setBody(post.getBody());
     // set the change inthe DB with postRepository
-    postRepository.save(post);
+    postRepository.save(dBpost);
 
     return "redirect:/posts";
 
@@ -84,22 +87,22 @@ public class PostController {
 
 /// ====================== Create View
     @GetMapping("/posts/create")
-    public String create() {
-
+    public String createForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping ("/posts/create")
-    public String insert(@RequestParam String title, @RequestParam String body, @RequestParam List<String> urls) {
-        List<PostImage> image = new ArrayList<>();
-
-        Post post = new Post(title, body);
-        for(String url : urls) {
-            PostImage postImage = new PostImage(url);
-            postImage.setPost(post);
-            image.add(postImage);
-        }
-        post.setImages(image);
+    public String insert(@ModelAttribute Post post) {
+//        List<PostImage> image = new ArrayList<>();
+//
+//        Post post = new Post(title, body);
+//        for(String url : urls) {
+//            PostImage postImage = new PostImage(url);
+//            postImage.setPost(post);
+//            image.add(postImage);
+//        }
+//        post.setImages(image);
 
 
         postRepository.save(post);

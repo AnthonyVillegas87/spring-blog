@@ -7,18 +7,37 @@
 <nav th:replace="partials/partials.html :: navbar"></nav>
 
 <h1>My Blogs</h1>
+<div class="container">
 
-<div th:each="post : ${posts}">
-    <img width="50" th:src="${image.url}" alt="" th:each="image : ${post.images}" >
-    <h3 th:text="${post.title}"></h3>
-    <p th:text="${post.body}"></p>
-    <a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit Post</a>
-    <form th:action="@{'/posts/' + ${post.id} + '/delete'}" th:method="POST">
-        <button>Delete Post</button>
-    </form>
+<div th:each="post : ${posts}" class="row">
+    <div class="col s12 m6">
+        <div class="card  z-depth-5">
+            <div class="card-image">
+                <img width="50" th:src="${image.url}" alt="" th:each="image : ${post.images}">
+
+                <div class="card-content">
+                    <h3 th:text="${post.title}" class="card-title"></h3>
+                    <p th:text="${post.body}"></p>
+
+                    <div class="card-action">
+
+                        <a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit Post</a>
+                        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" th:method="POST">
+                            <button>Delete Post</button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
+</div>
 
 
 <!--<div th:each="post : ${posts}">-->
