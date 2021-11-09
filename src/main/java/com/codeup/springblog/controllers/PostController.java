@@ -3,6 +3,7 @@ package com.codeup.springblog.controllers;
 import com.codeup.springblog.models.Ad;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.PostImage;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
@@ -103,6 +104,15 @@ public class PostController {
 
     @PostMapping ("/posts/create")
     public String insert(@ModelAttribute Post post) {
+        User author = userRepository.getById(1L);
+        post.setUser(author);
+        postRepository.save(post);
+        emailService.prepareAndSend(post, "You submitted: " + post.getTitle(), post.getBody());
+
+
+
+
+
 //        List<PostImage> image = new ArrayList<>();
 //
 //        Post post = new Post(title, body);
@@ -112,9 +122,9 @@ public class PostController {
 //            image.add(postImage);
 //        }
 //        post.setImages(image);
-
-
-        postRepository.save(post);
+//
+//
+//        postRepository.save(post);
         return "redirect:/posts";
     }
 

@@ -5,21 +5,24 @@
 <body>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 <h1>Create an account</h1>
-<form th:action="@{/sign-up}" method="POST" th:object="${user}">
-    <div class="input-field">
-        <label for="username">Username</label>
-        <input id="username" th:field="*{username}" />
-    </div>
-    <div class="input-field">
-        <label for="email">Email</label>
-        <input id="email" th:field="*{email}" />
-    </div>
-    <div class="input-field">
-        <label for="password">Password</label>
-        <input id="password" type="password" th:field="*{password}" />
-    </div>
-    <input value="Sign me up!" type="submit" />
-</form>
+<div class="container">
+    <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+        <div class="input-field">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}" />
+        </div>
+        <div class="input-field">
+            <label for="email">Email</label>
+            <input type="text" id="email" th:field="*{email}" />
+        </div>
+        <div class="input-field">
+            <label for="password">Password</label>
+            <input type="text" id="password"  th:field="*{password}" />
+        </div>
+        <input value="Sign me up!" type="submit" />
+    </form>
+</div>
+
 
 <script th:replace="partials/partials.html :: materialize-js"></script>
 </body>
