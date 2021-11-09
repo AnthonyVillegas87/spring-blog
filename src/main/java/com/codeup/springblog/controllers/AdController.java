@@ -29,11 +29,11 @@ public class AdController {
          model.addAttribute("ads", adRepository.findAll());
         return "ads/index";
     }
-    @GetMapping("/ads/{id}")
-    @ResponseBody
-    public Ad showSingleAd(@PathVariable long id) {
-        return adRepository.getById(id).get();
-    }
+//    @GetMapping("/ads/{id}")
+//    @ResponseBody
+//    public Ad showSingleAd(@PathVariable long id) {
+//        return adRepository.getById(id).get();
+//    }
 
     @PostMapping ("/ads")
     @ResponseBody
