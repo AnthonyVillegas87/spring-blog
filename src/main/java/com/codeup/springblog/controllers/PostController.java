@@ -9,6 +9,7 @@ import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,10 +51,9 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String show(@PathVariable long id) {
-
-        return "Posts " + id;
+    public String show(@PathVariable long id, Model model) {
+        model.addAttribute("post", postRepository.getById(id));
+        return "posts/show";
     }
 
 
@@ -104,7 +104,8 @@ public class PostController {
 
     @PostMapping ("/posts/create")
     public String insert(@ModelAttribute Post post) {
-        User author = userRepository.getById(1L);
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User author = userRepository.getById(principal.getId());
         post.setUser(author);
         postRepository.save(post);
         emailService.prepareAndSend(post, "You submitted: " + post.getTitle(), post.getBody());

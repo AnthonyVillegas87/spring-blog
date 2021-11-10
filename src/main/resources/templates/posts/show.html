@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Show</title>
-</head>
+<head th:replace="partials/partials.html :: head('Show Post')">
+<title>Show this Post</title>
 <body>
+<nav th:replace="partials/partials.html :: navbar"></nav>
 <h1>Blog</h1>
+<div class="container">
 
-<h3><span th:text="${post.title}"></span></h3>
-<p th:text="${post.body}"></p>
+    <div class="card  z-depth-5">
+        <h3><span th:text="${post.title}"></span></h3>
+        <p th:text="${post.body}"></p>
+    </div>
+
+</div>
+
+<script th:replace="partials/partials.html :: materialize-js"></script>
 </body>
 </html>
