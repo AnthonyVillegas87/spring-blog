@@ -6,13 +6,13 @@
 </head>
 <body>
 <h1>Create an Ad</h1>
-<form th:action="@{/ads/create}" th:method="post" th:object="${ad}">
-  <label for="title">Title:</label>
-  <input th:field="*{title}" id="title"><br>
-  <label for="description">Description:</label>
-  <textarea th:field="*{description}" id="description" cols="30" rows="10"></textarea><br>
-  <button type="submit">Submit Post</button>
-</form>
+    <form th:action="@{/ads/create}" th:method="post" th:object="${ad}">
+      <label for="title">Title:</label>
+      <input th:field="*{title}" id="title"><br>
+      <label for="description">Description:</label>
+      <textarea th:field="*{description}" id="description" cols="30" rows="10"></textarea><br>
+      <button type="submit">Submit Post</button>
+    </form>
 </body>
 </html>
 
